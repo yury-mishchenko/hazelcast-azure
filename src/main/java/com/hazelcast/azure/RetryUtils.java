@@ -15,12 +15,12 @@
 
 package com.hazelcast.azure;
 
+import java.util.concurrent.Callable;
+
 import com.hazelcast.core.HazelcastException;
 import com.hazelcast.logging.ILogger;
 import com.hazelcast.logging.Logger;
-import com.hazelcast.internal.util.ExceptionUtil;
-
-import java.util.concurrent.Callable;
+import com.hazelcast.util.ExceptionUtil;
 
 /**
  * Static utility class to retry operations.

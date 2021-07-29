@@ -15,16 +15,13 @@
 
 package com.hazelcast.azure;
 
-import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import com.hazelcast.config.Config;
-import com.hazelcast.config.DiscoveryConfig;
-import com.hazelcast.config.XmlConfigBuilder;
-import com.hazelcast.internal.nio.IOUtil;
-import com.hazelcast.spi.discovery.DiscoveryStrategy;
-import com.hazelcast.spi.discovery.impl.DefaultDiscoveryService;
-import com.hazelcast.spi.discovery.integration.DiscoveryServiceSettings;
-import org.junit.Rule;
-import org.junit.Test;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,13 +32,17 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Rule;
+import org.junit.Test;
+
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import com.hazelcast.config.Config;
+import com.hazelcast.config.DiscoveryConfig;
+import com.hazelcast.config.XmlConfigBuilder;
+import com.hazelcast.nio.IOUtil;
+import com.hazelcast.spi.discovery.DiscoveryStrategy;
+import com.hazelcast.spi.discovery.impl.DefaultDiscoveryService;
+import com.hazelcast.spi.discovery.integration.DiscoveryServiceSettings;
 
 public class AzureDiscoveryStrategyFactoryTest {
     @Rule

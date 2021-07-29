@@ -15,14 +15,6 @@
 
 package com.hazelcast.azure;
 
-import com.hazelcast.config.properties.PropertyDefinition;
-import com.hazelcast.internal.nio.IOUtil;
-import com.hazelcast.logging.ILogger;
-import com.hazelcast.logging.Logger;
-import com.hazelcast.spi.discovery.DiscoveryNode;
-import com.hazelcast.spi.discovery.DiscoveryStrategy;
-import com.hazelcast.spi.discovery.DiscoveryStrategyFactory;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,6 +24,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import com.hazelcast.config.properties.PropertyDefinition;
+import com.hazelcast.logging.ILogger;
+import com.hazelcast.logging.Logger;
+import com.hazelcast.nio.IOUtil;
+import com.hazelcast.spi.discovery.DiscoveryNode;
+import com.hazelcast.spi.discovery.DiscoveryStrategy;
+import com.hazelcast.spi.discovery.DiscoveryStrategyFactory;
 
 /**
  * Factory class which returns {@link AzureDiscoveryStrategy} to Discovery SPI
@@ -72,7 +72,6 @@ public class AzureDiscoveryStrategyFactory implements DiscoveryStrategyFactory {
      * @see <a href=https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service#metadata-apis>Azure
      * Instance Metadata API</a>
      */
-    @Override
     public boolean isAutoDetectionApplicable() {
         return azureDnsServerConfigured() && azureInstanceMetadataAvailable();
     }
@@ -106,10 +105,5 @@ public class AzureDiscoveryStrategyFactory implements DiscoveryStrategyFactory {
                 .withHeader("Metadata", "True")
                 .get()
                 .isEmpty();
-    }
-
-    @Override
-    public DiscoveryStrategyLevel discoveryStrategyLevel() {
-        return DiscoveryStrategyLevel.CLOUD_VM;
     }
 }

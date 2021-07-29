@@ -101,7 +101,9 @@ class AzureComputeApi {
             }
 
             JsonObject properties = item.asObject().get("properties").asObject();
-            if (properties.get("virtualMachine") != null) {
+            // The "virtualMachine" property is only present when checking a ScaleSet!
+            // It can happen that we need to scan all interface services directly.
+            //if (properties.get("virtualMachine") != null) {
                 for (JsonValue ipConfiguration : toJsonArray(properties.get("ipConfigurations"))) {
                     JsonObject ipProps = ipConfiguration.asObject().get("properties").asObject();
                     String privateIp = ipProps.getString("privateIPAddress", null);
@@ -110,7 +112,7 @@ class AzureComputeApi {
                         interfaces.put(privateIp, new AzureNetworkInterface(privateIp, publicIpId, tagList));
                     }
                 }
-            }
+            //}
         }
         return interfaces;
     }

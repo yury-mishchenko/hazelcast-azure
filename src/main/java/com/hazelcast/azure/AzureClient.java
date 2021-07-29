@@ -70,7 +70,7 @@ class AzureClient {
     }
 
     private String scaleSetFromConfigOrMetadataApi() {
-        if (!azureConfig.isInstanceMetadataAvailable()) {
+        if (azureConfig.getScaleSet() != null || !azureConfig.isInstanceMetadataAvailable()) {
             return azureConfig.getScaleSet();
         }
         LOGGER.finest("Property 'scaleSet' not configured, fetching from the VM metadata service");
