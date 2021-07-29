@@ -1,4 +1,5 @@
 #### This fork is an attempt to make the discovery plug work with Hazelcast 3.12.x.
+Use 3.12-compatibility branch!
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 #### **DEPRECATED:** `hazelcast-azure` plugin has been merged with [`hazelcast`](https://github.com/hazelcast/hazelcast)!
