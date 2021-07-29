@@ -56,9 +56,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/hazelcast/hazelcast-azure.git</connection>
-        <developerConnection>scm:git:git@github.com:hazelcast/hazelcast-azure.git</developerConnection>
-        <url>https://github.com/hazelcast/hazelcast/</url>
+        <connection>scm:git:git://github.com/yury-mishchenko/hazelcast-azure.git</connection>
+        <developerConnection>scm:git:git@github.com:yury-mishchenko/hazelcast-azure.git</developerConnection>
+        <url>https://github.com/yury-mishchenko/hazelcast-azure/</url>
     </scm>
 
     <developers>
