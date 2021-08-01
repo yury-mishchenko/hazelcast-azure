@@ -1,7 +1,7 @@
 #### This fork is an attempt to make the discovery plug working with Hazelcast 3.12.x.
 Use 3.12-compatibility branch!
 
--- If you need to disable the default scale set autodetection, pass empty string as the scale set name in the configuration. In this case all netwrok interfaces are checked. 
+-- Added support of multiple scale sets. Just specify all scale sets as comman separated list in the scale-set configuration parameter.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 #### **DEPRECATED:** `hazelcast-azure` plugin has been merged with [`hazelcast`](https://github.com/hazelcast/hazelcast)!
