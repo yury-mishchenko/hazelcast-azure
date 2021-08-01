@@ -16,10 +16,12 @@
 package com.hazelcast.azure;
 
 
+import static com.hazelcast.azure.Utils.isEmpty;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.logging.Logger;
-
-import static com.hazelcast.azure.Utils.isEmpty;
 
 /**
  * Responsible for fetching the discovery information from Azure APIs.
@@ -82,12 +84,15 @@ class AzureClient {
         final String accessToken = fetchAccessToken();
         LOGGER.finest(String.format("Fetching instances for subscription '%s' and resourceGroup '%s'",
                 subscriptionId, resourceGroup));
-        Collection<AzureAddress> addresses = azureComputeApi.instances(subscriptionId, resourceGroup,
-                scaleSet, tag, accessToken);
-        LOGGER.finest(String.format("Found the following instances for project '%s' and zone '%s': %s",
-                subscriptionId, resourceGroup,
-                addresses));
-        return addresses;
+        final String[] ssList = Arrays.stream(scaleSet.split(",")).map(String::trim).toArray(String[]::new);
+        final ArrayList<AzureAddress> allAddresses = new ArrayList<>();
+
+        for (String ssName : ssList) {
+           allAddresses.addAll(azureComputeApi.instances(subscriptionId, resourceGroup, ssName, tag, accessToken));
+        }
+        LOGGER.finest(String.format("Found the following instances for project '%s' and zone '%s': %s", subscriptionId,
+          resourceGroup, allAddresses));
+        return allAddresses;
     }
 
     private String fetchAccessToken() {

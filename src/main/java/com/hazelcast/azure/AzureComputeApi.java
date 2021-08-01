@@ -21,6 +21,7 @@ import com.hazelcast.internal.json.JsonObject;
 import com.hazelcast.internal.json.JsonValue;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -54,7 +55,8 @@ class AzureComputeApi {
 
     Collection<AzureAddress> instances(String subscriptionId, String resourceGroup, String scaleSet,
                                        Tag tag, String accessToken) {
-        String privateIpResponse = RestClient
+       try {
+             String privateIpResponse = RestClient
                 .create(urlForPrivateIpList(subscriptionId, resourceGroup, scaleSet))
                 .withHeader("Authorization", String.format("Bearer %s", accessToken))
                 .get();
@@ -72,11 +74,14 @@ class AzureComputeApi {
 
         for (AzureNetworkInterface anInterface : networkInterfaces.values()) {
             if (tag == null || anInterface.hasTag(tag)) {
-                addresses.add(new AzureAddress(anInterface.getPrivateIp(), publicIpMap.get(anInterface.getPublicIpId())));
+                addresses.add(new AzureAddress(anInterface.getPrivateIp(),
+                   publicIpMap.get(anInterface.getPublicIpId())));
             }
         }
-
         return addresses;
+      } catch (RestClientException e) {
+       return Collections.emptyList();
+      }
     }
 
     private String urlForPrivateIpList(String subscriptionId, String resourceGroup, String scaleSet) {
