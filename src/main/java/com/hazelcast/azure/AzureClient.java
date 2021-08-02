@@ -84,7 +84,8 @@ class AzureClient {
         final String accessToken = fetchAccessToken();
         LOGGER.finest(String.format("Fetching instances for subscription '%s' and resourceGroup '%s'",
                 subscriptionId, resourceGroup));
-        final String[] ssList = Arrays.stream(scaleSet.split(",")).map(String::trim).toArray(String[]::new);
+        final String[] ssList = (scaleSet == null) ? new String[] {null}
+            : Arrays.stream(scaleSet.split(",")).map(String::trim).toArray(String[]::new);
         final ArrayList<AzureAddress> allAddresses = new ArrayList<>();
 
         for (String ssName : ssList) {

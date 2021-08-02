@@ -130,11 +130,10 @@ public class AzureDiscoveryStrategy extends AbstractDiscoveryStrategy {
                     azureConfig.getClientId(),
                     azureConfig.getClientSecret(),
                     azureConfig.getSubscriptionId(),
-                    azureConfig.getResourceGroup(),
-                    azureConfig.getScaleSet())) {
+                    azureConfig.getResourceGroup())) {
                 throw new InvalidConfigurationException("Invalid Azure Discovery config: "
                         + "useInstanceMetada property is configured as `true`. Please DO NOT configure any of tenantId, "
-                        + "clientId, clientSecret, subscriptionId, resourceGroup, and scaleSet properties.");
+                        + "clientId, clientSecret, subscriptionId, resourceGroup properties.");
             }
         }
     }
